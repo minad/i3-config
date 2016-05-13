@@ -1,0 +1,9 @@
+#!/bin/bash
+id=$(xprop -root _NET_ACTIVE_WINDOW | sed 's/.*0x/0x/')
+vm=$(xprop -id $id | grep '_QUBES_VMNAME(STRING)' | sed 's/.*"\(.*\)".*/\1/')
+if [[ "$vm" != "" ]]; then
+	qvm-run "$vm" urxvt
+else
+	xfce4-terminal
+fi
+

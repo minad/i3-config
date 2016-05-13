@@ -1,0 +1,7 @@
+#!/bin/sh
+i3status -c ~/.i3/status.conf | while true; do
+  read line
+  #names=`qvm-ls | grep ' \* ' | awk '{print $1}' | sort | grep -v '{dom0}\|{sys-.*}' | tr '\n' ' '`
+  qubes=`qvm-ls | grep ' \* ' | wc -l`
+  echo "$qubes qubes | $line"
+done
