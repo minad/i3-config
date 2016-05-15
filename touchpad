@@ -1,0 +1,8 @@
+#!/bin/sh
+if synclient | grep TouchpadOff.*=.*0; then
+	synclient TouchpadOff=1
+	notify-send -t 500 'Touchpad OFF'
+else
+	synclient TouchpadOff=0
+	notify-send -t 500 'Touchpad ON'
+fi

@@ -1,7 +1,19 @@
 #!/bin/sh
-i3status -c ~/.i3/status.conf | while true; do
-  read line
+#i3status -c ~/.i3/status.conf | while true; do
+#  read line
+while true; do
   #names=`qvm-ls | grep ' \* ' | awk '{print $1}' | sort | grep -v '{dom0}\|{sys-.*}' | tr '\n' ' '`
   qubes=`qvm-ls | grep ' \* ' | wc -l`
-  echo "$qubes qubes | $line"
+  quality=`qvm-run sys-net -p 'iwconfig 2>/dev/null | perl -ne '"'"'print $1 if /Quality=([^ ]+)/'"'"`
+  ssid=`qvm-run sys-net -p 'iwconfig 2>/dev/null | perl -ne '"'"'print $1 if /ESSID:"(.*)"/'"'"`
+  ip=`qvm-run sys-net -p 'ifconfig | perl -ne '"'"'if (/^[w|e]/../^$/) { print $1 if /inet ([^ ]+)/ }'"'"`
+  date=`date '+%Y-%m-%d %H:%M:%S'`
+  disk=`df -h / | tail -n 1 | awk '{print $4}'`
+  load=`uptime | awk '{print $8}' | tr -d ','`
+  ac=`[[ "cat /sys/class/power_supply" == "1" ]] && echo " AC"`
+  bat_now=`cat /sys/class/power_supply/BAT0/energy_now`
+  bat_full=`cat /sys/class/power_supply/BAT0/energy_full_design`
+  bat=$((100*bat_now/bat_full)) 
+  echo "$qubes Q | W: $quality $ssid | E: $ip | D: $disk | B: $bat%$ac | $load | $date" # | $line"
+  sleep 5
 done

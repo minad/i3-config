@@ -1,5 +1,5 @@
 #!/bin/bash
-xset m 4 0
+xset m 3.75 0
 xset -b
 xsetroot -solid '#000000'
 
@@ -15,4 +15,7 @@ for i in $autostart_etc/*.desktop $autostart_home/*.desktop; do
 		$(grep "Exec=" "$i" | sed 's/Exec=//') &
 	fi
 done
+
+xautolock -detectsleep -time 3 -locker "i3lock -d -c 000000" \
+          -notify 30 -notifier "notify-send -u critical -t 10000 -- 'Locking screen in 30s'" &
 

@@ -119,7 +119,15 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Really exit?' -b 'Yes' 'i3-msg exit'"
+bindsym $mod+Shift+e exec "i3-nagbar -f 'pango:DejaVu Sans Mono 12' -t warning -m 'Really exit?' -b 'Yes' 'i3-msg exit'"
+
+bindsym XF86AudioRaiseVolume exec amixer sset Master 2%+
+bindsym XF86AudioLowerVolume exec amixer sset Master 2%-
+bindsym XF86AudioMute exec amixer sset Master toggle
+bindsym XF86MonBrightnessDown exec xbacklight -5
+bindsym XF86MonBrightnessUp exec xbacklight +5
+bindsym XF86Tools exec ~/.i3/touchpad
+bindsym XF86Explorer exec xautolock -locknow
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -155,4 +163,4 @@ bar {
 
 exec --no-startup-id ~/.i3/autostart
 
-assign [class="Qubes-manager"] "9 qubes"
+assign [class="Qubes-manager"] "10 Q"
