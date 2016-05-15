@@ -127,6 +127,7 @@ bindsym XF86AudioMute exec amixer sset Master toggle
 bindsym XF86MonBrightnessDown exec xbacklight -5
 bindsym XF86MonBrightnessUp exec xbacklight +5
 bindsym XF86Tools exec ~/.i3/touchpad
+bindsym XF86WLAN exec ~/.i3/wifi
 bindsym XF86Explorer exec xautolock -locknow
 
 # resize window (you can also use the mouse for that)
