@@ -1,0 +1,8 @@
+#!/bin/sh
+if qvm-run -p sys-net 'nmcli radio wifi' | grep enabled; then
+	qvm-run sys-net 'nmcli radio wifi off'
+	notify-send -t 500 'Wifi OFF'
+else
+	qvm-run sys-net 'nmcli radio wifi on'
+	notify-send -t 500 'Wifi ON'
+fi

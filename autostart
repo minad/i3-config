@@ -17,5 +17,5 @@ for i in $autostart_etc/*.desktop $autostart_home/*.desktop; do
 done
 
 xautolock -detectsleep -time 3 -locker "i3lock -d -c 000000" \
-          -notify 30 -notifier "notify-send -u critical -t 10000 -- 'Locking screen in 30s'" &
+          -notify 30 -notifier "notify-send -u critical -t 2000 -- 'Locking screen in 30s'" &
 
