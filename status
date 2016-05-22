@@ -1,4 +1,5 @@
 #!/bin/bash
+# By @minad and @SietsevanderMolen
 
 WIFI_VM="sys-net"
 
