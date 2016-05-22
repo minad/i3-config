@@ -1,18 +1,29 @@
 #!/bin/bash
-xset m 3.75 0 &
-xset -b &
-xsetroot -solid '#000000' &
 
-autostart_etc=${XDG_CONFIG_DIRS-/etc/xdg}/autostart
-autostart_home=${XDG_CONFIG_HOME-~/.config}/autostart
+run_settings() {
+    xset m 3.75 0 &
+    xset -b &
+    xsetroot -solid '#000000' &
+}
 
-shopt -s nullglob
-for i in $autostart_etc/*.desktop $autostart_home/*.desktop; do
+run_autostart() {
+    local autostart_etc=${XDG_CONFIG_DIRS-/etc/xdg}/autostart
+    local autostart_home=${XDG_CONFIG_HOME-~/.config}/autostart
+
+    shopt -s nullglob
+    local i
+    for i in $autostart_etc/*.desktop $autostart_home/*.desktop; do
 	if ! grep -q "OnlyShowIn=" "$i"; then
-		$(grep "Exec=" "$i" | sed 's/Exec=//') &
+	    $(grep "Exec=" "$i" | sed 's/Exec=//') &
 	fi
-done
+    done
+}
 
-xautolock -detectsleep -time 3 -locker "i3lock -d -c 000000" \
-          -notify 30 -notifier "notify-send -t 2000 'Locking screen in 30s'" &
+run_screenlock() {
+    xautolock -detectsleep -time 3 -locker 'i3lock -d -c 000000' \
+              -notify 30 -notifier "notify-send -t 2000 'Locking screen in 30s'" &
+}
 
+run_settings
+run_autostart
+run_screenlock
