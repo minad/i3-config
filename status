@@ -27,16 +27,6 @@ status_time() {
     echo -n "{\"name\":\"time\",\"full_text\":\"$time\"}" # last entry
 }
 
-status_mem() {
-    local xl=$(xl info 2>/dev/null)
-    local free_memory=$(echo "$xl" | grep free_memory | cut -d':' -f2)
-    local total_memory=$(echo "$xl" | grep total_memory | cut -d':' -f2)
-    if [[ -n "$total_memory" ]]; then
-      local mem_used_percent=$((100*(total_memory-free_memory)/total_memory))
-      json mem "M: $mem_used_percent%"
-    fi
-}
-
 status_bat() {
     local bat_now=$(cat /sys/class/power_supply/BAT0/energy_now 2>/dev/null)
     local bat_full=$(cat /sys/class/power_supply/BAT0/energy_full_design 2>/dev/null)
@@ -80,16 +70,15 @@ main() {
     echo '[]'
     local n
     for ((n=0; ; ++n)); do
-	if (( n % 5 == 0 )); then
+	if (( n % 10 == 0 )); then
           local qubes=$(status_qubes)
 	  local net=$(status_net)
-	  local mem=$(status_mem)
 	  local disk=$(status_disk)
 	  local bat=$(status_bat)
+	  local load=$(status_load)
 	fi
-	local load=$(status_load)
 	local time=$(status_time)
-        echo ",[$qubes$net$mem$disk$bat$load$time]"
+        echo ",[$qubes$net$disk$bat$load$time]"
         sleep 1
     done
 }
