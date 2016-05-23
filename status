@@ -53,7 +53,7 @@ status_bat() {
           color='#ffff00'
       fi
 
-      json bat "$bat%$ac" "$color"
+      json bat "B: $bat%$ac" "$color"
     fi
 }
 
