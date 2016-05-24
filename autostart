@@ -3,27 +3,26 @@
 xdg_autostart() {
     local config=$1
     shopt -s nullglob
-    if test -d "$config/autostart"; then
-	local i
-	for i in $config/autostart/*.desktop; do
-	    grep -q -E "^Hidden=true" "$i" && continue
-	    if grep -q -E "^OnlyShowIn=" "$i"; then
-		# need to test twice, as lack of the line entirely means we still run it
-		grep -E "^OnlyShowIn=" "$i" | grep -q 'I3;' || continue
-	    fi
-	    grep -E "^NotShowIn=" "$i" | grep -q 'I3;' && continue
+    if [[ -d "$config/autostart" ]]; then
+        local i
+        for i in $config/autostart/*.desktop; do
+            grep -q -E "^Hidden=true" "$i" && continue
+            if grep -q -E "^OnlyShowIn=" "$i"; then
+                # need to test twice, as lack of the line entirely means we still run it
+                grep -E "^OnlyShowIn=" "$i" | grep -q 'I3;' || continue
+            fi
+            grep -E "^NotShowIn=" "$i" | grep -q 'I3;' && continue
 
-	    # check for TryExec
-	    trycmd=`grep -E "^TryExec=" "$i" | cut -d'=' -f2`
-	    if test "$trycmd"; then
-		which "$trycmd" >/dev/null 2>&1 || continue
-	    fi
+            local trycmd=$(grep -E "^TryExec=" "$i" | cut -d'=' -f2)
+            if [[ -n "$trycmd" ]]; then
+                which "$trycmd" >/dev/null 2>&1 || continue
+            fi
 
-	    cmd=`grep -E "^Exec=" "$i" | cut -d'=' -f2`
-	    if test "$cmd" && which "$cmd" >/dev/null 2>&1; then
-		$cmd &
-	    fi
-	done
+            local cmd=$(grep -E "^Exec=" "$i" | cut -d'=' -f2)
+            if [[ -n "$cmd" ]]; then
+                $cmd &
+            fi
+        done
     fi
 }
 
