@@ -11,7 +11,12 @@ json() {
 }
 
 status_net() {
-    local net=$(qvm-run $WIFI_VM -p 'iwconfig; ip addr' 2>/dev/null)
+    if type qvm-run 2>/dev/null >/dev/null; then
+	local cmd="qvm-run $WIFI_VM -p"
+    else
+	local cmd="sh -c"
+	local net=$($cmd 'iwconfig; ip addr' 2>/dev/null)
+    fi
     local ssid=$(echo "$net" | perl -ne 'print " $1" if /ESSID:"([^"]+)"/')
     if [[ -n $ssid ]]; then
         local quality=$(echo "$net" | perl -ne 'print " $1" if /Quality=(\d+\/\d+)/')
@@ -54,8 +59,10 @@ status_load() {
 }
 
 status_qubes() {
-    local qubes=$(qvm-ls 2>/dev/null | grep ' \* ' | wc -l)
-    json qubes "$qubes Q"
+    if type qvm-ls 2>/dev/null >/dev/null; then
+      local qubes=$(qvm-ls 2>/dev/null | grep ' \* ' | wc -l)
+      json qubes "$qubes Q"
+    fi
 }
 
 status_disk() {
