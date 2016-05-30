@@ -27,6 +27,7 @@ xdg_autostart() {
 }
 
 run_settings() {
+    xset dmps 0 0 0 &
     xset m 3.75 0 &
     xset -b &
     xsetroot -solid '#000000' &
@@ -38,7 +39,7 @@ run_autostart() {
 }
 
 run_screenlock() {
-    xautolock -detectsleep -time 3 -locker 'i3lock -d -c 000000' \
+    xautolock -detectsleep -time 3 -locker '~/.i3/lock' \
               -notify 30 -notifier "notify-send -t 2000 'Locking screen in 30s'" &
 }
 
