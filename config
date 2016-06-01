@@ -164,5 +164,6 @@ bar {
 
 exec --no-startup-id ~/.i3/autostart
 
-assign [class="Qubes-manager"] "10 Q"
+assign [class="^(?!URxvt)$"] 10
+assign [class="Qubes-manager"] Q
 for_window [class="Qubes-manager"] floating enable
