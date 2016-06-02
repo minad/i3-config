@@ -124,6 +124,7 @@ bindsym $mod+Shift+e exec "i3-nagbar -f 'pango:DejaVu Sans Mono 12' -t warning -
 bindsym XF86AudioRaiseVolume exec amixer sset Master 2%+
 bindsym XF86AudioLowerVolume exec amixer sset Master 2%-
 bindsym XF86AudioMute exec amixer sset Master toggle
+bindsym XF86AudioMicMute exec amixer sset Headphone toggle
 bindsym XF86MonBrightnessDown exec xbacklight -5
 bindsym XF86MonBrightnessUp exec xbacklight +5
 bindsym XF86Tools exec ~/.i3/touchpad
