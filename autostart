@@ -28,7 +28,7 @@ xdg_autostart() {
 
 run_settings() {
     xset dmps 0 0 0 &
-    xset m 3.75 0 &
+    xset m 4 0 &
     xset -b &
     xsetroot -solid '#000000' &
 }
