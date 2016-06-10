@@ -15,8 +15,8 @@ status_net() {
 	local cmd="qvm-run $WIFI_VM -p"
     else
 	local cmd="sh -c"
-	local net=$($cmd 'iwconfig; ip addr' 2>/dev/null)
     fi
+    local net=$($cmd 'iwconfig; ip addr' 2>/dev/null)
     local ssid=$(echo "$net" | perl -ne 'print " $1" if /ESSID:"([^"]+)"/')
     if [[ -n $ssid ]]; then
         local quality=$(echo "$net" | perl -ne 'print " $1" if /Quality=(\d+\/\d+)/')
