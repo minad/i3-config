@@ -28,7 +28,7 @@ xdg_autostart() {
 
 run_settings() {
     xset -dpms &
-    xset m 3.75 0 &
+    xset m 6.0 0 &
     xset -b &
     xsetroot -solid '#000000' &
 }
