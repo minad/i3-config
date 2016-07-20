@@ -125,8 +125,8 @@ bindsym XF86AudioRaiseVolume exec amixer sset Master 2%+
 bindsym XF86AudioLowerVolume exec amixer sset Master 2%-
 bindsym XF86AudioMute exec amixer sset Master toggle
 bindsym XF86AudioMicMute exec amixer sset Headphone toggle
-bindsym XF86MonBrightnessDown exec xbacklight -5
-bindsym XF86MonBrightnessUp exec xbacklight +5
+#bindsym XF86MonBrightnessDown exec xbacklight -5
+#bindsym XF86MonBrightnessUp exec xbacklight +5
 bindsym XF86Tools exec ~/.i3/touchpad
 bindsym XF86WLAN exec ~/.i3/wifi
 bindsym XF86Explorer exec xautolock -locknow
