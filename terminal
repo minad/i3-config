@@ -6,7 +6,6 @@ for t in "$TERMINAL" x-terminal-emulator urxvt rxvt termit terminator Eterm ater
 done
 '
 
-
 get_id() {
     local id=$(xprop -root _NET_ACTIVE_WINDOW)
     echo ${id##* } # extract id
