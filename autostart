@@ -27,10 +27,10 @@ xdg_autostart() {
 }
 
 run_settings() {
+    (hsetroot -solid '#000000'; xcompmgr -f -D 5) &
     xset -dpms &
-    xset m 6.0 0 &
+    xset m 5.0 0.5 &
     xset -b &
-    xsetroot -solid '#000000' &
 }
 
 run_autostart() {
